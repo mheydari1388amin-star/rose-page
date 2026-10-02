@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💜🌹</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Tahoma,Arial,sans-serif;
+  background:linear-gradient(135deg,#16001f,#4b126b,#9b1b62);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+.card{
+  width:90%;
+  max-width:430px;
+  padding:35px 25px;
+  text-align:center;
+  border-radius:25px;
+  background:rgba(255,255,255,.12);
+  backdrop-filter:blur(12px);
+  box-shadow:0 15px 50px rgba(0,0,0,.35);
+  position:relative;
+  z-index:2;
+}
+
+h1{
+  font-size:25px;
+  margin-bottom:25px;
+}
+
+button{
+  border:0;
+  border-radius:30px;
+  padding:13px 25px;
+  margin:8px;
+  font-size:17px;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.yes{
+  background:#d946ef;
+  color:white;
+}
+
+.no{
+  background:#ff4f81;
+  color:white;
+  position:relative;
+}
+
+button:hover{
+  transform:scale(1.08);
+}
+
+.hidden{
+  display:none;
+}
+
+.fade{
+  animation:fade .7s ease;
+}
+
+@keyframes fade{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.message{
+  margin:20px 0;
+  padding:15px;
+  border-radius:18px;
+  background:rgba(0,0,0,.2);
+  font-size:18px;
+  line-height:1.8;
+}
+
+.cry{
+  font-size:45px;
+  animation:cry 1.5s ease forwards;
+}
+
+@keyframes cry{
+  0%{opacity:0;transform:scale(.5);}
+  30%{opacity:1;transform:scale(1.2);}
+  100%{opacity:0;transform:translateY(-80px) scale(.8);}
+}
+
+.heart{
+  position:fixed;
+  bottom:-30px;
+  font-size:22px;
+  animation:float 5s linear forwards;
+  pointer-events:none;
+  z-index:1;
+}
+
+@keyframes float{
+  0%{
+    transform:translateY(0) rotate(0);
+    opacity:0;
+  }
+  15%{opacity:1;}
+  100%{
+    transform:translateY(-110vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+.rose{
+  font-size:55px;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  50%{transform:scale(1.12);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <div id="first" class="fade">
+    <div class="rose">🌹</div>
+    <h1>فکر می‌کنی دوستت دارم؟ 💜</h1>
+
+    <button class="yes" onclick="nextQuestion()">
+      بله 💜
+    </button>
+
+    <button class="no" onclick="runAway(this)">
+      نه ❤️
+    </button>
+  </div>
+
+  <div id="second" class="hidden">
+    <div class="rose">🌹</div>
+
+    <h1>تو هم منو دوست داری؟ 💜</h1>
+
+    <p>(بار اول بزن رو نه 😏)</p>
+
+    <button class="yes" onclick="finalPage()">
+      بله 💜
+    </button>
+
+    <button class="no" id="secondNoBtn" onclick="secondNo()">
+      نه ❤️
+    </button>
+
+    <div id="message"></div>
+  </div>
+
+  <div id="final" class="hidden fade">
+    <div class="rose">🌹</div>
+
+    <h1>
+      پس منتظرم آدرستو بدی 😌
+    </h1>
+
+    <div class="message">
+      ❤️ 🌹 💜
+    </div>
+
+    <button class="yes" onclick="openTelegram()">
+      برگشت به تلگرام 💜
+    </button>
+  </div>
+
+</div>
+
+<script>
+
+let noCount = 0;
+
+function nextQuestion(){
+  document.getElementById("first").classList.add("hidden");
+  document.getElementById("second").classList.remove("hidden");
+  document.getElementById("second").classList.add("fade");
+}
+
+function runAway(button){
+
+  const maxX = window.innerWidth - button.offsetWidth - 20;
+  const maxY = window.innerHeight - button.offsetHeight - 20;
+
+  const x = Math.max(10, Math.random() * maxX);
+  const y = Math.max(10, Math.random() * maxY);
+
+  button.style.position = "fixed";
+  button.style.left = x + "px";
+  button.style.top = y + "px";
+}
+
+function secondNo(){
+
+  noCount++;
+
+  const message = document.getElementById("message");
+
+  if(noCount === 1){
+
+    message.innerHTML =
+      "حتی بخاطر حرف منم باز زدی رو نه؟ 😭<br>یعنی دوستم نداری؟ 💔";
+
+  }
+
+  else if(noCount === 2){
+
+    message.innerHTML =
+      "بازم نه؟ 🥺💔";
+
+  }
+
+  else{
+
+    message.innerHTML =
+      '<div class="cry">😡😭</div>' +
+      "دیگه واقعاً ناراحت شدم 😭💔";
+
+  }
+
+  runAway(document.getElementById("secondNoBtn"));
+}
+
+function finalPage(){
+
+  document.getElementById("second").classList.add("hidden");
+
+  document.getElementById("final").classList.remove("hidden");
+
+}
+
+function openTelegram(){
+
+  window.location.href = "https://t.me/";
+}
+
+function createHeart(){
+
+  const heart = document.createElement("div");
+
+  heart.className = "heart";
+
+  const items = ["💜","❤️","🌹"];
+
+  heart.innerText =
+    items[Math.floor(Math.random() * items.length)];
+
+  heart.style.left =
+    Math.random() * 100 + "vw";
+
+  heart.style.animationDuration =
+    (4 + Math.random() * 4) + "s";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  },8000);
+}
+
+setInterval(createHeart,700);
+
+</script>
+
+</body>
+</html>
